@@ -1,5 +1,6 @@
 package com.startup.bar.modules.usecase;
 
+import com.startup.bar.crosscutting.model.UpdateProduct;
 import com.startup.bar.crosscutting.persistence.entity.Product;
 import com.startup.bar.modules.dataprovider.ProductsDataProvider;
 import lombok.extern.log4j.Log4j2;
@@ -21,5 +22,9 @@ public class ProcessProducts {
 
     public Product newProduct(Product product) {
         return repository.addProduct(product);
+    }
+
+    public Product updateProduct(UpdateProduct updateProduct) {
+        return repository.updateProduct(updateProduct);
     }
 }

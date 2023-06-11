@@ -1,5 +1,6 @@
 package com.startup.bar.modules.api;
 
+import com.startup.bar.crosscutting.model.UpdateProduct;
 import com.startup.bar.crosscutting.persistence.entity.Product;
 import com.startup.bar.modules.usecase.ProcessProducts;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,5 +28,10 @@ public class ProductsWebApi {
     @PostMapping("/newProduct")
     public Product newProduct(@RequestBody Product product) {
         return process.newProduct(product);
+    }
+
+    @PostMapping("/updateProduct")
+    public Product updateProduct(@RequestBody UpdateProduct updateProduct) {
+        return process.updateProduct(updateProduct);
     }
 }
