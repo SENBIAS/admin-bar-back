@@ -1,14 +1,15 @@
-package com.startup.bar.modules.dataprovider.crudrepository;
+package com.startup.bar.modules.products.dataprovider.crudrepository;
 
+import com.startup.bar.crosscutting.dto.ProductDetail;
 import com.startup.bar.crosscutting.model.UpdateProduct;
 import com.startup.bar.crosscutting.persistence.entity.Presentation;
 import com.startup.bar.crosscutting.persistence.entity.Product;
 import com.startup.bar.crosscutting.persistence.repository.BarProductRepository;
-import com.startup.bar.modules.dataprovider.ProductsDataProvider;
-import org.bson.types.ObjectId;
+import com.startup.bar.modules.products.dataprovider.ProductsDataProvider;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -21,6 +22,30 @@ public class CrudProductsDataProvider implements ProductsDataProvider {
     @Override
     public List<Product> findAllProducts() {
         return repository.findAll();
+    }
+
+    @Override
+    public List<ProductDetail> findProducts() {
+        List<ProductDetail> productDetails = new ArrayList<>();
+        List<Product> products = findAllProducts();
+
+        for(Product product : products) {
+            String name = product.getLicor();
+            for (Presentation presentation : product.getPresentations()) {
+
+                String productName = name + " " + presentation.getMm() + "mm";
+                ProductDetail productDetail = ProductDetail.builder()
+                        .licor(productName)
+                        .mm(presentation.getMm())
+                        .price(presentation.getPrecioEstablecimiento())
+                        .gain(presentation.getGananciaEstablecimiento())
+                        .build();
+
+                productDetails.add(productDetail);
+            }
+        }
+
+        return productDetails;
     }
 
     @Override

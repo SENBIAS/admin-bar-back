@@ -1,8 +1,9 @@
-package com.startup.bar.modules.api;
+package com.startup.bar.modules.products.api;
 
+import com.startup.bar.crosscutting.dto.ProductDetail;
 import com.startup.bar.crosscutting.model.UpdateProduct;
 import com.startup.bar.crosscutting.persistence.entity.Product;
-import com.startup.bar.modules.usecase.ProcessProducts;
+import com.startup.bar.modules.products.usecase.ProcessProducts;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
@@ -23,6 +24,11 @@ public class ProductsWebApi {
     @GetMapping("")
     public List<Product> findAllProducts() {
         return process.findAllProducts();
+    }
+
+    @GetMapping("/findProducts")
+    public List<ProductDetail> findProducts() {
+        return process.findProducts();
     }
 
     @PostMapping("/newProduct")
